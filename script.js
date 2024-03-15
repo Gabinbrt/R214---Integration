@@ -30,7 +30,7 @@ fetch(url)
     var artist_name = "";
 
     for (i = 0; i < names.length; i++) {
-      console.log(names[i], artists[i]);
+      //console.log(names[i], artists[i]);
 
       var list_noms = names[i];
       var list_artists = artists[i];
@@ -54,7 +54,7 @@ fetch("data.json")
     return response.json();
   })
   .then(data => {
-    console.log(data);
+    //console.log(data);
     jsonData = data;
     createChart(data, "bar");
     setTrackList(data);
@@ -98,13 +98,15 @@ function setTrackList(data){
   let template = document.getElementById('trackCard');
 
   // parcourir les chansons
-  for (let i = 0; i < data.length-40; i++) {
+  for (let i = 0; i < data.length-39; i++) {
       // faire un clone tu template
       const clone = template.content.cloneNode(true);
 
       let artists= data[i].artists[0].name;
 
-      console.log(data[i]);
+      //console.log(data[i]);
+      console.log(data[i].album.external_urls.spotify);
+
       // remplir le clone
       clone.querySelector('.card-title').textContent = data[i].name;
       clone.querySelector('.card-text').textContent = artists;
@@ -118,28 +120,109 @@ function setTrackList(data){
   }
 }
 
-/*function setCarousel(data){
-  let template = document.getElementById('Carousel')
-  for (let i = 0; i < data.length-40; i++) {
-    // faire un clone tu template
-    const clone = template.content.cloneNode(true);
+let currentIndex = 0;
+let audioPlayer = document.getElementById('audioPlayer');
+let audioSource = document.getElementById('audioSource');
+let playPauseBtn = document.getElementById('playPauseBtn');
+let prevBtn = document.getElementById('prevBtn');
+let nextBtn = document.getElementById('nextBtn');
+let trackTitle = document.getElementById('trackTitle');
+let trackArtist = document.getElementById('trackArtist');
 
-    let artists= data[i].artists[0].name;
+        // Charger les données JSON
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                // Commencer la lecture de la première musique
+                loadTrack(data, currentIndex);
 
-    console.log(data[i]);
-    // remplir le clone
-    clone.querySelector('.card-title').textContent = data[i].name;
-    clone.querySelector('.card-text').textContent = artists;
-    clone.querySelector('.card-img-top').src = data[i].album.images[0].url;
-    clone.querySelector('.card-img-top').alt = data[i].name;
-    clone.querySelector('.btn-primary').href = data[i].album.external_urls.spotify;
+                // Bouton Play/Pause
+                playPauseBtn.addEventListener('click', () => {
+                    if (audioPlayer.paused) {
+                        audioPlayer.play();
+                        playPauseBtn.textContent = 'Pause';
+                    } else {
+                        audioPlayer.pause();
+                        playPauseBtn.textContent = 'Play';
+                    }
+                });
 
+                // Bouton Précédent
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + data.length) % data.length;
+                    loadTrack(data, currentIndex);
+                });
 
-    // ajouter le clone au DOM dans le conteneur
-    document.getElementById('trackList').appendChild(clone);
+                // Bouton Suivant
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % data.length;
+                    loadTrack(data, currentIndex);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+        // Charger la musique actuelle
+function loadTrack(data, index) {
+  if (data[index].preview_url) {
+      audioSource.src = data[index].preview_url;
+      audioPlayer.load();
+      audioPlayer.play();
+      playPauseBtn.textContent = 'Pause';
+      trackTitle.textContent = data[index].name;
+      trackArtist.textContent = data[index].album.artists[0].name;
+
+  } else {
+      // Si l'URL de prévisualisation est null, passer à la piste suivante
+      currentIndex = (currentIndex + 1) % data.length;
+      loadTrack(data, currentIndex);
+  }
 }
-}
 
-}
+fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const carouselIndicators = document.querySelector('.carousel-indicators');
+                const carouselInner = document.querySelector('.carousel-inner');
+
+                data.forEach((track, index) => {
+                    const indicator = document.createElement('button');
+                    indicator.type = 'button';
+                    indicator.dataset.bsTarget = '#carouselExampleCaptions';
+                    indicator.dataset.bsSlideTo = index;
+                    indicator.setAttribute('aria-label', `Slide ${index + 1}`);
+                    if (index === 0) {
+                        indicator.classList.add('active');
+                    }
+                    carouselIndicators.appendChild(indicator);
+
+                    const carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item');
+                    if (index === 0) {
+                        carouselItem.classList.add('active');
+                    }
+
+                    const img = document.createElement('img');
+                    img.src = track.album.images[0].url;
+                    img.classList.add('d-block', 'w-100');
+
+                    const carouselCaption = document.createElement('div');
+                    carouselCaption.classList.add('carousel-caption', 'd-none', 'd-md-block');
+                    const title = document.createElement('h5');
+                    title.textContent = track.name;
+                    const artist = document.createElement('p');
+                    artist.textContent = track.album.artists[0].name;
+
+                    carouselCaption.appendChild(title);
+                    carouselCaption.appendChild(artist);
+
+                    carouselItem.appendChild(img);
+                    carouselItem.appendChild(carouselCaption);
+
+                    carouselInner.appendChild(carouselItem);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+
+
 
 
