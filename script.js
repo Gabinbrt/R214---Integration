@@ -16,9 +16,6 @@ fetch(url)
     const artists = data.map(item => item.album.artists[0].name);
     const popularity = data.map(item => item.album.popularity);
 
-    // affichage des objets contenus dans "album"
-    //console.log(names);
-
     // Utilise innerHTML pour afficher les tableaux dans les éléments div
     //document.getElementById("noms").innerHTML = names.join("<br>");
     //document.getElementById("images").innerHTML = images.join("<br>");
@@ -105,7 +102,7 @@ function setTrackList(data){
       let artists= data[i].artists[0].name;
 
       //console.log(data[i]);
-      console.log(data[i].album.external_urls.spotify);
+      //console.log(data[i].album.external_urls.spotify);
 
       // remplir le clone
       clone.querySelector('.card-title').textContent = data[i].name;
@@ -166,8 +163,7 @@ function loadTrack(data, index) {
   if (data[index].preview_url) {
       audioSource.src = data[index].preview_url;
       audioPlayer.load();
-      audioPlayer.play();
-      playPauseBtn.textContent = 'Pause';
+      playPauseBtn.textContent = 'Play';
       trackTitle.textContent = data[index].name;
       trackArtist.textContent = data[index].album.artists[0].name;
 
@@ -179,50 +175,39 @@ function loadTrack(data, index) {
 }
 
 fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                const carouselIndicators = document.querySelector('.carousel-indicators');
-                const carouselInner = document.querySelector('.carousel-inner');
-
-                data.forEach((track, index) => {
-                    const indicator = document.createElement('button');
-                    indicator.type = 'button';
-                    indicator.dataset.bsTarget = '#carouselExampleCaptions';
-                    indicator.dataset.bsSlideTo = index;
-                    indicator.setAttribute('aria-label', `Slide ${index + 1}`);
-                    if (index === 0) {
-                        indicator.classList.add('active');
-                    }
-                    carouselIndicators.appendChild(indicator);
-
-                    const carouselItem = document.createElement('div');
-                    carouselItem.classList.add('carousel-item');
-                    if (index === 0) {
-                        carouselItem.classList.add('active');
-                    }
-
-                    const img = document.createElement('img');
-                    img.src = track.album.images[0].url;
-                    img.classList.add('d-block', 'w-100');
-
-                    const carouselCaption = document.createElement('div');
-                    carouselCaption.classList.add('carousel-caption', 'd-none', 'd-md-block');
-                    const title = document.createElement('h5');
-                    title.textContent = track.name;
-                    const artist = document.createElement('p');
-                    artist.textContent = track.album.artists[0].name;
-
-                    carouselCaption.appendChild(title);
-                    carouselCaption.appendChild(artist);
-
-                    carouselItem.appendChild(img);
-                    carouselItem.appendChild(carouselCaption);
-
-                    carouselInner.appendChild(carouselItem);
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
-
-
-
-
+  .then(response => response.json())
+  .then(data => {
+    const carouselIndicators = document.querySelector('.carousel-indicators');
+    const carouselInner = document.querySelector('.carousel-inner');
+      data.forEach((track, index) => {
+        const indicator = document.createElement('button');
+        indicator.type = 'button';
+        indicator.dataset.bsTarget = '#carouselExampleCaptions';
+        indicator.dataset.bsSlideTo = index;
+        indicator.setAttribute('aria-label', `Slide ${index + 1}`);
+        if (index === 0) {
+          indicator.classList.add('active');
+        }
+        carouselIndicators.appendChild(indicator);
+        const carouselItem = document.createElement('div');
+        carouselItem.classList.add('carousel-item');
+        if (index === 0) {
+          carouselItem.classList.add('active');
+        }
+        const img = document.createElement('img');
+        img.src = track.album.images[0].url;
+        img.classList.add('d-block', 'w-100');
+        const carouselCaption = document.createElement('div');
+        carouselCaption.classList.add('carousel-caption', 'd-none', 'd-md-block');
+        const title = document.createElement('h5');
+        title.textContent = track.name;
+        const artist = document.createElement('p');
+        artist.textContent = track.album.artists[0].name;
+        carouselCaption.appendChild(title);
+        carouselCaption.appendChild(artist);
+        carouselItem.appendChild(img);
+        carouselItem.appendChild(carouselCaption);
+        carouselInner.appendChild(carouselItem);
+      });
+    })
+    .catch(error => console.error('Error fetching data:', error));

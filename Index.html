@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Votre fichier de style personnalisé -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="images/174872.png" type="image/x-icon">
 </head>
 <body>
 
@@ -16,19 +17,7 @@
     <h1>Mon Récap' Spotify</h1>
 </header>
 
-<div class="Chart">
-    <div class="chart_types text-center">
-        <button onclick="setChartType('bar')">Barres</button>
-        <button onclick="setChartType('line')">Lignes</button>
-        <button onclick="setChartType('doughnut')">Donut</button>
-        <button onclick="setChartType('polarArea')">Diagramme Polaire</button>
-        <button onclick="setChartType('radar')">Radar</button>
-
-    </div>
-    <canvas id="myChart" ></canvas>
-  </div>
-
-<h2 class="text-center">10 des sons de la playlist</h2>
+<h2 class="bg-info text-white text-center py-1 ">10 des sons de la playlist</h2>
 <div id="trackList" class="d-flex flex-wrap justify-content-around"></div>
 
 <template id="trackCard">
@@ -42,7 +31,18 @@
     </div>
 </template>
 
-</br>
+<h2 class="bg-info text-white text-center py-1 ">Diagramme de popularité des 50 sons</h2>
+<div class="Chart">
+            <div class="chart_types text-center">
+                <button onclick="setChartType('bar')">Barres</button>
+                <button onclick="setChartType('line')">Lignes</button>
+                <button onclick="setChartType('doughnut')">Donut</button>
+                <button onclick="setChartType('polarArea')">Diagramme Polaire</button>
+                <button onclick="setChartType('radar')">Radar</button>
+            </div>
+            <canvas id="myChart"></canvas>
+
+<h2 class="bg-info text-white text-center py-1 ">Carousel des 50 sons</h2>
 <div id="carouselExampleCaptions" class="carousel slide" style="max-width: 400px; margin: 0 auto;">
     <div class="carousel-indicators"></div>
     <div class="carousel-inner"></div>
@@ -57,8 +57,6 @@
 </div>
 
 
-
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -67,11 +65,11 @@
                     Music Player
                 </div>
                 <div class="card-body">
-                    <audio id="audioPlayer" controls class="w-100">
+                    <audio id="audioPlayer" controls class="w-100 d-flex justify-content-center">
                         <source id="audioSource" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
-                    <div class="player-controls">
+                    <div class="player-controls d-flex justify-content-center">
                         <button id="prevBtn" class="btn btn-primary me-3">Prev</button>
                         <button id="playPauseBtn" class="btn btn-primary me-3">Play</button>
                         <button id="nextBtn" class="btn btn-primary me-3">Next</button>
@@ -83,9 +81,12 @@
         </div>
     </div>
 </div>
+</div>
+
+<br>
 
 <!-- Footer -->
-<footer class="bg-dark text-white text-center py-3">
+<footer class="bg-dark text-white text-center py-3 d-flex justify-content-center">
     <div class="container">
         <ul class="list-inline">
             <li class="list-inline-item"><a href="#">Mentions légales</a></li>
