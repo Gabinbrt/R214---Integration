@@ -74,16 +74,22 @@ function createChart(data, type) {
     data: {
       labels: data.map(item => item.name),
       datasets: [{
-        label: 'Popularité par son',
+        label: 'Popularité',
         data: data.map(item => item.album.popularity),
         borderWidth: 1
       }]
     },
     options: {
       responsive: true,
+      maintainAspectRatio : true,
       scales: {
         y: {
-          beginAtZero: true
+          beginAtZero : false,
+        }
+      },
+      layout: {
+        padding: {
+          bottom: -480  // Réglez cette valeur en fonction de votre besoin pour réduire l'espace vide
         }
       }
     }
@@ -198,7 +204,7 @@ fetch('data.json')
         img.src = track.album.images[0].url;
         img.classList.add('d-block', 'w-100');
         const carouselCaption = document.createElement('div');
-        carouselCaption.classList.add('carousel-caption', 'd-none', 'd-md-block');
+        carouselCaption.classList.add('carousel-caption', 'd-md-block');
         const title = document.createElement('h5');
         title.textContent = track.name;
         const artist = document.createElement('p');

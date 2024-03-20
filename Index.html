@@ -31,6 +31,8 @@
     </div>
 </template>
 
+<br>
+
 <h2 class="bg-info text-white text-center py-1 ">Diagramme de popularité des 50 sons</h2>
 <div class="Chart">
             <div class="chart_types text-center">
@@ -40,7 +42,15 @@
                 <button onclick="setChartType('polarArea')">Diagramme Polaire</button>
                 <button onclick="setChartType('radar')">Radar</button>
             </div>
-            <canvas id="myChart"></canvas>
+            
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <canvas id="myChart" style="max-width: 1200px; height: 150px;"></canvas>
+        </div>
+    </div>
+</div>        
+
 
 <h2 class="bg-info text-white text-center py-1 ">Carousel des 50 sons</h2>
 <div id="carouselExampleCaptions" class="carousel slide" style="max-width: 400px; margin: 0 auto;">
