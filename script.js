@@ -55,6 +55,7 @@ fetch("data.json")
     jsonData = data;
     createChart(data, "bar");
     setTrackList(data);
+    setotherTrackList(data);
   })
   .catch(error => {
     console.error('Erreur de chargement des données JSON', error);
@@ -120,6 +121,29 @@ function setTrackList(data){
 
       // ajouter le clone au DOM dans le conteneur
       document.getElementById('trackList').appendChild(clone);
+  }
+}
+
+function setotherTrackList(data){
+  // récupération du template
+  let template = document.getElementById('trackCard2');
+
+  // parcourir les chansons
+  for (let i = data.length - 6; i < data.length; i++) { // Utiliser data.length - 8 comme condition
+      // faire un clone tu template
+      const clone = template.content.cloneNode(true);
+
+      let artists= data[i].artists[0].name;
+
+      // remplir le clone
+      clone.querySelector('.card-title').textContent = data[i].name;
+      clone.querySelector('.card-text').textContent = artists;
+      clone.querySelector('.card-img-top').src = data[i].album.images[0].url;
+      clone.querySelector('.card-img-top').alt = data[i].name;
+      clone.querySelector('.btn-primary').href = data[i].album.external_urls.spotify;
+
+      // ajouter le clone au DOM dans le conteneur
+      document.getElementById('otherTrackList').appendChild(clone);
   }
 }
 

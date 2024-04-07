@@ -17,81 +17,135 @@
     <h1>Mon Récap' Spotify</h1>
 </header>
 
-<h2 class="bg-info text-white text-center py-1 ">10 des sons de la playlist</h2>
-<div id="trackList" class="d-flex flex-wrap justify-content-around"></div>
 
-<template id="trackCard">
-    <div class="card " style="width: 18rem">
-        <img class="card-img-top">
-        <div class="card-body">
-            <h5 class="card-title"></h5>
-            <p class="card-text"></p>
-            <a href="#" target="_blank" class="btn btn-primary">Ecouter le son</a>
-        </div>
-    </div>
-</template>
-
-<br>
-
-<h2 class="bg-info text-white text-center py-1 ">Diagramme de popularité des 50 sons</h2>
-<div class="Chart">
-            <div class="chart_types text-center">
-                <button onclick="setChartType('bar')">Barres</button>
-                <button onclick="setChartType('line')">Lignes</button>
-                <button onclick="setChartType('doughnut')">Donut</button>
-                <button onclick="setChartType('polarArea')">Diagramme Polaire</button>
-                <button onclick="setChartType('radar')">Radar</button>
-            </div>
-            
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <canvas id="myChart" style="max-width: 1200px; height: 150px;"></canvas>
-        </div>
-    </div>
-</div>        
-
-
-<h2 class="bg-info text-white text-center py-1 ">Carousel des 50 sons</h2>
-<div id="carouselExampleCaptions" class="carousel slide" style="max-width: 400px; margin: 0 auto;">
-    <div class="carousel-indicators"></div>
-    <div class="carousel-inner"></div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
-
-
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card mt-5">
-                <div class="card-header text-center">
-                    Music Player
-                </div>
-                <div class="card-body">
-                    <audio id="audioPlayer" controls class="w-100 d-flex justify-content-center">
-                        <source id="audioSource" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <div class="player-controls d-flex justify-content-center">
-                        <button id="prevBtn" class="btn btn-primary me-3">Prev</button>
-                        <button id="playPauseBtn" class="btn btn-primary me-3">Play</button>
-                        <button id="nextBtn" class="btn btn-primary me-3">Next</button>
+        <!-- Colonne pour les 10 sons -->
+        <div class="col-md-6">
+            <div class="bg-secondary p-4 rounded">
+                <h2 class="text-white text-center py-1">10 des sons de la playlist</h2>
+                <div id="trackList" class="row row-cols-1 row-cols-md-2 justify-content-around"></div>
+            </div>
+            <template id="trackCard">
+                <div class="col">
+                    <div class="card mt-4" style="width: 100%;">
+                        <img class="card-img-top img-fluid">
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <p class="card-text"></p>
+                            <a href="#" target="_blank" class="btn btn-primary">Ecouter le son</a>
+                        </div>
                     </div>
-                    <div id="trackTitle" class="text-center mt-3 fw-bold"></div>
-                    <div id="trackArtist" class="text-center "></div>
                 </div>
+            </template>
+        </div>
+
+
+        <!-- Colonne pour la chart, le carousel et le lecteur musical -->
+        <div class="col-md-6">
+            <div class="row">
+                <!-- Colonne pour la chart -->
+                <div class="col-md-12">
+                    <div class="text-white bg-secondary p-4 rounded h-100">
+                        <h2 class="text-white text-center py-1">Diagramme de popularité des 50 sons</h2>
+                        <div class="Chart">
+                            <div class="chart_types text-center">
+                                <button onclick="setChartType('bar')">Barres</button>
+                                <button onclick="setChartType('line')">Lignes</button>
+                                <button onclick="setChartType('doughnut')">Donut</button>
+                                <button onclick="setChartType('polarArea')">Diagramme Polaire</button>
+                                <button onclick="setChartType('radar')">Radar</button>
+                            </div>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <canvas id="myChart" style="max-width: 1200px; height: 300px; "></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Espacement -->
+                <div class="col-md-12 mt-4"></div>
+
+                <!-- Colonne pour le carousel -->
+                <div class="col-md-12">
+                    <div class="bg-secondary p-4 rounded h-100">
+                        <h2 class="text-white text-center py-1">Carousel des 50 sons</h2>
+                        <div id="carouselExampleCaptions" class="carousel slide" style="max-width: 400px; margin: 0 auto;">
+                            <div class="carousel-indicators"></div>
+                            <div class="carousel-inner"></div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Espacement -->
+                <div class="col-md-12 mt-4"></div>
+
+                <!-- Colonne pour le lecteur musical -->
+                <div class="col-md-12">
+                    <div class="bg-secondary p-4 rounded h-100">
+                        <h2 class="text-white text-center py-1">Player musical</h2>
+                        <!-- Insérer le code du lecteur musical ici -->
+                        <div class="container">
+                            <div class="row">                                    
+                                <div class="card-body">
+                                    <audio id="audioPlayer" controls class="w-100 d-flex justify-content-center">
+                                        <source id="audioSource" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    <div class="player-controls d-flex justify-content-center">
+                                        <button id="prevBtn" class="btn btn-primary me-3">Prev</button>
+                                        <button id="playPauseBtn" class="btn btn-primary me-3">Play</button>
+                                        <button id="nextBtn" class="btn btn-primary me-3">Next</button>
+                                    </div>
+                                    <div id="trackTitle" class="text-center mt-3 fw-bold"></div>
+                                    <div id="trackArtist" class="text-center "></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Espacement -->
+                <div class="col-md-12 mt-4"></div>
+                
+                <!-- Nouvelle colonne pour les 8 sons -->
+                <div class="col-md-12">
+                    <div class="bg-secondary p-4 rounded h-100">
+                        <h2 class="text-white text-center py-1">Autres sons de la playlist</h2>
+                        <div id="otherTrackList" class="row row-cols-1 row-cols-md-2 justify-content-center"></div>
+                    </div>
+                    <template id="trackCard2">
+                        <div class="col">
+                            <div class="card mt-3" style="width: 100%;">
+                                <img class="card-img-top img-fluid">
+                                <div class="card-body">
+                                    <h5 class="card-title"></h5>
+                                    <p class="card-text"></p>
+                                    <a href="#" target="_blank" class="btn btn-primary">Ecouter le son</a>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <!-- Fin de la nouvelle colonne pour les 8 sons -->
+                
             </div>
         </div>
     </div>
 </div>
-</div>
+
 
 <br>
 
